@@ -1,8 +1,6 @@
 package tests.getorderlist;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpStatus;
 import org.junit.AfterClass;
@@ -23,14 +21,12 @@ public class GetOrderTest {
 
     private static String email;
     private static String password;
-    private static String name;
     private static String accessToken;
     private static List<Ingredient> ingredientsList;
 
     @BeforeClass
     public static void setUp() {
         RestAssured.baseURI = BASE_URL;
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         email = RandomStringUtils.randomAlphabetic(10) + "@mail.ru";
         password = RandomStringUtils.randomAlphabetic(8);
         RegistrationMethods.createUserAndAssertCode(new DataUser(email, password, "Lando"), HttpStatus.SC_OK);
