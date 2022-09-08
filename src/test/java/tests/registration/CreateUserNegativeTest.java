@@ -3,6 +3,7 @@ package tests.registration;
 import io.restassured.RestAssured;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpStatus;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tests.serialization.DataUser;
@@ -37,5 +38,11 @@ public class CreateUserNegativeTest {
     @Test
     public void createUserWithoutEmail(){
         RegistrationMethods.createUserAndAssertCode(new DataUser(null, password, name), (HttpStatus.SC_FORBIDDEN));
+    }
+
+    @AfterClass
+    public static void clear(){
+        String accessToken = RegistrationMethods.authorizationUser(new DataUser(email, password, null));
+        RegistrationMethods.deleteUser(accessToken, HttpStatus.SC_ACCEPTED);
     }
 }

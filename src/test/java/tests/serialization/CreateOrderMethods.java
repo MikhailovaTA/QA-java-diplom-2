@@ -2,7 +2,6 @@ package tests.serialization;
 
 import tests.deserialization.Ingredient;
 import tests.deserialization.IngredientsResponse;
-import tests.deserialization.ServerResponseAfterAuthorization;
 
 import java.util.List;
 

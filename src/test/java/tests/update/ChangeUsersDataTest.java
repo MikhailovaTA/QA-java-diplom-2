@@ -3,6 +3,7 @@ package tests.update;
 import io.restassured.RestAssured;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpStatus;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import tests.serialization.DataUser;
@@ -25,5 +26,11 @@ public class ChangeUsersDataTest {
     @Test
     public void checkUpdateUsersDateWithoutToken(){
         RegistrationMethods.changeUserDateWithoutToken(new DataUser("56" + email, null, null), HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @AfterClass
+    public static void clear(){
+        String accessToken = RegistrationMethods.authorizationUser(new DataUser(email, password, null));
+        RegistrationMethods.deleteUser(accessToken, HttpStatus.SC_ACCEPTED);
     }
 }
